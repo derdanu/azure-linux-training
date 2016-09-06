@@ -1,5 +1,12 @@
 # Linux virtual machine for training on Microsoft Azure 
 
+This virtual machines is preconfigured for Linux training purposes.
+
+|Type|Description|
+| 3 x 128GB Harddrives|Raid devices or use with LVM|
+| 1 x 14GG Harddrive|Swap device |
+| /opt/azure-linux-training-master|This repository with training files|
+
 ## SSH Key Generation
 
 1. Windows - https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps
