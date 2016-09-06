@@ -2,10 +2,12 @@
 
 This virtual machines is preconfigured for Linux training purposes.
 
+
 | Type | Description |
 | 3 x 128GB Harddrives | Raid devices or use with LVM |
 | 1 x 14GG Harddrive | Swap device |
 | /opt/azure-linux-training-master | This repository with training files |
+
 
 ## SSH Key Generation
 
