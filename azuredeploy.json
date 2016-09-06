@@ -239,7 +239,7 @@
       "type": "string",
       "value": "[reference(concat(variables('vmName'), 'pip')).ipAddress]"
     },
-    "SSH Connection String": {
+    "SSH Connection": {
       "type": "string",
       "value": "[concat('ssh ', reference(concat(variables('vmName'), 'pip')).ipAddress)]"
     }
