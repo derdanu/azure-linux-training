@@ -2,6 +2,7 @@
 
 This virtual machines is preconfigured for Linux training purposes.
 
+## Virtual Machine content
 
 | Type | Description |
 | 3 x 128GB Harddrives | Raid devices or use with LVM |
