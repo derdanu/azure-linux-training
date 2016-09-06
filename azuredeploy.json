@@ -20,7 +20,7 @@
     "baseTemplateUrl": "https://raw.githubusercontent.com/derdanu/azure-linux-training/master/",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
-    "imageVersion": "14.04.2-LTS",
+    "imageVersion": "14.04.5-LTS",
     "diskNamePrefix": "linuxtraining",
     "nicName": "LinuxTrainingVMNic",
     "publicIPName": "LinuxTrainingPIP",
