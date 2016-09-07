@@ -7,6 +7,9 @@
     },
     "sshKeyData": {
       "value": "SSH-KEY"
-    }
+    },
+    "image": {
+      "value": "centos"
+    }    
   }
 }

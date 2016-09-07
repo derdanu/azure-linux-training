@@ -14,13 +14,33 @@
       "metadata": {
         "description": "SSH rsa public key file as a string."
       }
+    },
+    "image": {
+      "type": "string",
+      "allowedValues": [
+        "centos",
+        "ubuntu"
+      ],
+      "defaultValue": "ubuntu",
+      "metadata": {
+        "description": "OS to use. Centos 7 or Ubuntu 14.04 LTS Linux"
+      }
     }
   },
   "variables": {
     "baseTemplateUrl": "https://raw.githubusercontent.com/derdanu/azure-linux-training/master/",
-    "imagePublisher": "Canonical",
-    "imageOffer": "UbuntuServer",
-    "imageVersion": "14.04.5-LTS",
+    "centos": {
+      "publisher": "Openlogic",
+      "offer": "CentOS",
+      "sku": "7.2",
+      "version": "latest"
+    },    
+    "ubuntu": {
+      "publisher": "Canonical",
+      "offer": "UbuntuServer",
+      "sku": "14.04.5-LTS",
+      "version": "latest"
+    },
     "diskNamePrefix": "linuxtraining",
     "nicName": "LinuxTrainingVMNic",
     "publicIPName": "LinuxTrainingPIP",
@@ -150,12 +170,7 @@
           }
         },
         "storageProfile": {
-          "imageReference": {
-            "publisher": "[variables('imagePublisher')]",
-            "offer": "[variables('imageOffer')]",
-            "sku": "[variables('imageVersion')]",
-            "version": "latest"
-          },
+          "imageReference": "[variables(parameters('image'))]",
           "osDisk": {
             "name": "osdisk",
             "vhd": {
