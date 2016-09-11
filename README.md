@@ -37,3 +37,17 @@ New-AzureRmResourceGroupDeployment -Name <DeploymentName> -ResourceGroupName <Re
 ```
 azure group deployment create <RessourceGroupName> <DeploymentName> --template-uri https://raw.githubusercontent.com/derdanu/azure-linux-training/master/azuredeploy.json
 ```
+
+## Docker Image 
+
+### Run the Ubuntu container
+
+```
+docker run -it dfalkner/azure-linux-training:ubuntu /bin/bash
+```
+
+### Run the Centos container
+
+```
+docker run -it dfalkner/azure-linux-training:centos /bin/bash
+```
