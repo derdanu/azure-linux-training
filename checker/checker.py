@@ -65,9 +65,11 @@ def evaluateScenario(scenario):
         print("not implemented yet")
     elif validation["type"] == "shell":
         code = validation["code"]
-        processInfo = subprocess.run(code, shell = True, stdout = subprocess.PIPE)
+        devnull = open(os.devnull, 'w')
+        returncode = subprocess.call(code, shell = True, stdout = devnull, stderr = devnull)
+        devnull.close()
 
-    if processInfo.returncode == 0:
+    if returncode == 0:
         return points
 
     return 0
@@ -87,7 +89,7 @@ if os.path.isfile('scenarios.json'):
     for scenario in data:
         printScenarioHeader(scenario)
 
-        if (scenario["constraints"] == 1 and isContainer is False) or isContainer is True:
+        if ("constraints" in scenario and scenario["constraints"] == 1 and isContainer is False) or isContainer is True:
             printScenarioEvaluation(0, scenario["points"])
 
             hitPoints += evaluateScenario(scenario)
