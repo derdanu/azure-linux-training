@@ -5,7 +5,7 @@ if [ -f /etc/debian_version ]; then
     apt-get install -y python3 && rm -rf /var/lib/apt/lists/*
 fi
 
-if [ -f /etc/redhat_release ]; then
+if [ -f /etc/redhat-release ]; then
     yum -y install https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
     sed -i -e "s/^enabled=1/enabled=0/" /etc/yum.repos.d/epel.repo
     yum -y --enablerepo=epel install python34
