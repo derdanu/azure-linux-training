@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 '''
 This checker script evaulates common scenarios for Linux system administrators.
 This helps to prepare for industry exams by learning with the system and validate the results.
