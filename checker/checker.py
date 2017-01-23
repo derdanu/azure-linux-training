@@ -57,7 +57,7 @@ def evaluateScenario(scenario):
     validation = scenario["validation"]
 
     if validation["type"] == "python":
-        print("python eval")
+        print("not implemented yet")
     elif validation["type"] == "shell":
         code = validation["code"]
         processInfo = subprocess.run(code, shell = True, stdout = subprocess.PIPE)
