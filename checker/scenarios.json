@@ -5,7 +5,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/group | grep lerners) -eq 1"
+            "code": "test $(cat /etc/group | grep learners) -eq 1"
         }
     }, 
     {
