@@ -1,7 +1,7 @@
 #/bin/bash
 
 # Install python3
-if [ -e /etc/debian_version ]; then
+if [ -f /etc/debian_version ]; then
     apt-get install -y python3 && rm -rf /var/lib/apt/lists/*
 fi
 
