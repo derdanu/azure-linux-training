@@ -1,1 +1,47 @@
-[]
+[
+    {
+        "name": "SA-UM-001",
+        "description": "Create a group with the name 'learners'",
+        "points": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(cat /etc/group | grep lerners) -gt 0"
+        }
+    }, 
+    {
+        "name": "SA-UM-002",
+        "description": "Add a user with the name 'student1'",
+        "points": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(cat /etc/passwd | grep student1) -gt 0"
+        }
+    },
+    {
+        "name": "SA-UM-003",
+        "description": "Add user 'student1' to the group 'learners' while leaving the primary group unchanged",
+        "points": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(cat /etc/group | grep student1 | grep learners) -gt 0"
+        }
+    },
+    {
+        "name": "SA-FS-001",
+        "description": "Create a directory '/opt/alt/exams' which is readable/writeable by its owner and by users of the group 'learners'",
+        "points": 2,
+        "validation": {
+            "type": "shell",
+            "code": "test $(ls -al /opt/alt/ | grep -e 'drwxrwx---\\+ [0-9] [a-zA-Z]\\+ learners .\\+ exams' | wc -l) -gt 0"
+        }
+    },
+    {
+        "name": "SA-BR-001",
+        "description": "Create a backup '/opt/alt/exams.tar.gz' with the recursive content of /opt/alt/exams",
+        "points": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(cd /tmp/; tar -xvjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -gt 0"
+        }
+    },
+]
