@@ -37,11 +37,14 @@ class bgcolors:
 def printScenarioHeader(scenario):
     print("Validating {} - {}: ".format(scenario["name"], scenario["description"]), end = "")
 
-def printScenarioEvaluation(hitPoints, maxPoints):
-    if hitPoints == maxPoints:
-        print("{}passed{} ({}/{})".format(bgcolors.OK, bgcolors.ENDC, hitPoints, maxPoints))
+def printScenarioEvaluation(hitPoints, maxPoints, skip = False):
+    if skip is True:
+        print("{}skipped{} (this scenario can only be run on a VM)".format(bgcolors.WARNING, bgcolors.ENDC))
     else:
-        print("{}failed{} ({}/{})".format(bgcolors.FAIL, bgcolors.ENDC, hitPoints, maxPoints))
+        if hitPoints == maxPoints:
+            print("{}passed{} ({}/{})".format(bgcolors.OK, bgcolors.ENDC, hitPoints, maxPoints))
+        else:
+            print("{}failed{} ({}/{})".format(bgcolors.FAIL, bgcolors.ENDC, hitPoints, maxPoints))
 
 def printSummary(hitPoints, maxPoints):
     ratio = hitPoints / maxPoints * 100
@@ -62,14 +65,19 @@ def evaluateScenario(scenario):
         print("not implemented yet")
     elif validation["type"] == "shell":
         code = validation["code"]
-        processInfo = subprocess.run(code, shell = True, stdout = subprocess.PIPE)
+        devnull = open(os.devnull, 'w')
+        returncode = subprocess.call(code, shell = True, stdout = devnull, stderr = devnull)
+        devnull.close()
 
-    if processInfo.returncode == 0:
+    if returncode == 0:
         return points
 
     return 0
 
 if os.path.isfile('scenarios.json'):
+    if os.path.isfile("/.dockerenv"):
+        isContainer = True;
+
     # Load scenarios
     with open('scenarios.json') as file:
         data = json.load(file)
@@ -80,10 +88,14 @@ if os.path.isfile('scenarios.json'):
 
     for scenario in data:
         printScenarioHeader(scenario)
-        printScenarioEvaluation(0, scenario["points"])
 
-        hitPoints += evaluateScenario(scenario)
-        maxPoints += scenario["points"]
+        if ("constraints" in scenario and scenario["constraints"] == 1 and isContainer is False) or isContainer is True:
+            printScenarioEvaluation(0, scenario["points"])
+
+            hitPoints += evaluateScenario(scenario)
+            maxPoints += scenario["points"]
+        else:
+            printScenarioEvaluation(0, 0, True)
 
     # Print results
     printSummary(hitPoints, maxPoints)
