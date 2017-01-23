@@ -5,7 +5,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/group | grep lerners) -gt 0"
+            "code": "test $(cat /etc/group | grep lerners) -eq 1"
         }
     }, 
     {
@@ -14,7 +14,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/passwd | grep student1) -gt 0"
+            "code": "test $(cat /etc/passwd | grep student1) -eq 1"
         }
     },
     {
@@ -32,7 +32,16 @@
         "points": 2,
         "validation": {
             "type": "shell",
-            "code": "test $(ls -al /opt/alt/ | grep -e 'drwxrwx---\\+ [0-9] [a-zA-Z]\\+ learners .\\+ exams' | wc -l) -gt 0"
+            "code": "test $(ls -al /opt/alt/ | grep -e 'drwxrwx---\\+ [0-9] [a-zA-Z]\\+ learners .\\+ exams' | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "SA-FS-002",
+        "description": "Create the file '/opt/alt/README' and set the immutable flag",
+        "points": 2,
+        "validation": {
+            "type": "shell",
+            "code": "test $(lsattr /opt/alt/ | grep README | grep -e '----i--------e-- .\\+' | wc -l) -eq 1"
         }
     },
     {
@@ -41,7 +50,46 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cd /tmp/; tar -xvjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -gt 0"
+            "code": "test $(cd /tmp/; tar -xvjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -eq 1"
         }
     },
+    {
+        "name": "LS-RA-001",
+        "description": "Add a new sudo rule to allow user 'student1' to run '/sbin/ifconfig' without providing a password",
+        "points": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(cat /etc/sudoers | grep -e 'student1.\\+NOPASSWD: /sbin/ifconfig' | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-001",
+        "description": "Create a new LVM volume group 'vg0' with the physical volumes /dev/sdb and /dev/sdc",
+        "points": 2,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(pvdisplay -c | grep -e '/dev/sd[bc]:vg0' | wc -l) -eq 2 && test $(vgdisplay -c | grep -e 'vg0' | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-002",
+        "description": "Create a logical volume 'exams' in volume group 'vg0'",
+        "points": 1,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(lvdisplay -c | grep /dev/vg0/exams:vg0 | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-003",
+        "description": "Format '/dev/vg0/exams' with ext4",
+        "points": 2,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(blkid /dev/vg0/exams | grep ext4 | wc -l) -eq 1"
+        }
+    }
 ]
