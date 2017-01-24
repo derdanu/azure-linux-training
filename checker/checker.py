@@ -39,12 +39,20 @@ def printScenarioHeader(scenario):
 
 def printScenarioEvaluation(hitPoints, maxPoints, skip = False):
     if skip is True:
-        print("{}skipped{} (this scenario can only be run on a VM)".format(bgcolors.WARNING, bgcolors.ENDC))
+        print("{}skipped{}".format(bgcolors.WARNING, bgcolors.ENDC))
     else:
         if hitPoints == maxPoints:
             print("{}passed{} ({}/{})".format(bgcolors.OK, bgcolors.ENDC, hitPoints, maxPoints))
         else:
             print("{}failed{} ({}/{})".format(bgcolors.FAIL, bgcolors.ENDC, hitPoints, maxPoints))
+
+def printHeader(isContainer):
+    print("AZURE-LINUX-TRAINING SCENARIO VALIDATION")
+
+    if isContainer is True:
+        print("{}NOTE:{} Some validations will be skipped as they can't be run within a container!".format(bgcolors.WARNING, bgcolors.ENDC))
+
+    print("", end = "\n")
 
 def printSummary(hitPoints, maxPoints):
     ratio = hitPoints / maxPoints * 100
@@ -53,9 +61,9 @@ def printSummary(hitPoints, maxPoints):
     print("FINAL RESULT: ", end = "")
 
     if ratio >= 80:
-        print("{}passed{} ({}/{})".format(bgcolors.OK, bgcolors.ENDC, hitPoints, maxPoints))
+        print("{}passed{} ({:.0f}% {}/{})".format(bgcolors.OK, bgcolors.ENDC, ratio, hitPoints, maxPoints))
     else:
-        print("{}failed{} ({}/{})".format(bgcolors.FAIL, bgcolors.ENDC, hitPoints, maxPoints))
+        print("{}failed{} ({:.0f}% {}/{})".format(bgcolors.FAIL, bgcolors.ENDC, ratio, hitPoints, maxPoints))
 
 def evaluateScenario(scenario):
     points = scenario["points"]
@@ -74,12 +82,18 @@ def evaluateScenario(scenario):
 
     return 0
 
-if os.path.isfile('scenarios.json'):
+scenarioFile = "{}/scenarios.json".format(os.path.dirname(os.path.realpath(__file__)))
+
+if os.path.isfile(scenarioFile):
+    isContainer = False
+
     if os.path.isfile("/.dockerenv"):
-        isContainer = True;
+        isContainer = True
+
+    printHeader(isContainer)
 
     # Load scenarios
-    with open('scenarios.json') as file:
+    with open(scenarioFile) as file:
         data = json.load(file)
 
     # Iterate screnarios and evaluate results
@@ -89,10 +103,11 @@ if os.path.isfile('scenarios.json'):
     for scenario in data:
         printScenarioHeader(scenario)
 
-        if ("constraints" in scenario and scenario["constraints"] == 1 and isContainer is False) or isContainer is True:
-            printScenarioEvaluation(0, scenario["points"])
+        if ("constraints" not in scenario) or (scenario["constraints"] == 0) or (scenario["constraints"] == 1 and isContainer is False):
+            scenarioHitPoints = evaluateScenario(scenario)
+            printScenarioEvaluation(scenarioHitPoints, scenario["points"])
 
-            hitPoints += evaluateScenario(scenario)
+            hitPoints += scenarioHitPoints
             maxPoints += scenario["points"]
         else:
             printScenarioEvaluation(0, 0, True)
