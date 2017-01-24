@@ -5,7 +5,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/group | grep lerners) -eq 1"
+            "code": "test $(cat /etc/group | grep learners | wc -l) -eq 1"
         }
     }, 
     {
@@ -14,7 +14,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/passwd | grep student1) -eq 1"
+            "code": "test $(cat /etc/passwd | grep student1 | wc -l) -eq 1"
         }
     },
     {
@@ -23,7 +23,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cat /etc/group | grep student1 | grep learners) -gt 0"
+            "code": "test $(cat /etc/group | grep student1 | grep learners | wc -l) -gt 0"
         }
     },
     {
