@@ -61,9 +61,9 @@ def printSummary(hitPoints, maxPoints):
     print("FINAL RESULT: ", end = "")
 
     if ratio >= 80:
-        print("{}passed{} ({}/{})".format(bgcolors.OK, bgcolors.ENDC, hitPoints, maxPoints))
+        print("{}passed{} ({:.0f}% {}/{})".format(bgcolors.OK, bgcolors.ENDC, ratio, hitPoints, maxPoints))
     else:
-        print("{}failed{} ({}/{})".format(bgcolors.FAIL, bgcolors.ENDC, hitPoints, maxPoints))
+        print("{}failed{} ({:.0f}% {}/{})".format(bgcolors.FAIL, bgcolors.ENDC, ratio, hitPoints, maxPoints))
 
 def evaluateScenario(scenario):
     points = scenario["points"]
