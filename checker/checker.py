@@ -104,9 +104,10 @@ if os.path.isfile(scenarioFile):
         printScenarioHeader(scenario)
 
         if ("constraints" not in scenario) or (scenario["constraints"] == 0) or (scenario["constraints"] == 1 and isContainer is False):
-            printScenarioEvaluation(0, scenario["points"])
+            scenarioHitPoints = evaluateScenario(scenario)
+            printScenarioEvaluation(scenarioHitPoints, scenario["points"])
 
-            hitPoints += evaluateScenario(scenario)
+            hitPoints += scenarioHitPoints
             maxPoints += scenario["points"]
         else:
             printScenarioEvaluation(0, 0, True)
