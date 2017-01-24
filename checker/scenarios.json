@@ -27,7 +27,7 @@
         }
     },
     {
-        "name": "SA-FS-001",
+        "name": "SA-FP-001",
         "description": "Create a directory '/opt/alt/exams' which is readable/writeable by its owner and by users of the group 'learners'",
         "points": 2,
         "validation": {
@@ -36,7 +36,7 @@
         }
     },
     {
-        "name": "SA-FS-002",
+        "name": "SA-FP-002",
         "description": "Create the file '/opt/alt/README' and set the immutable flag",
         "points": 2,
         "validation": {
@@ -63,9 +63,9 @@
         }
     },
     {
-        "name": "FS-001",
-        "description": "Create a new LVM volume group 'vg0' with the physical volumes /dev/sdc and /dev/sdd",
-        "points": 2,
+        "name": "FS-LM-001",
+        "description": "Create a new LVM volume group 'vg0' with the physical volumes '/dev/sdc' and '/dev/sdd'",
+        "points": 3,
         "constraints": 1,
         "validation": {
             "type": "shell",
@@ -73,8 +73,8 @@
         }
     },
     {
-        "name": "FS-002",
-        "description": "Create a logical volume 'exams' in volume group 'vg0'",
+        "name": "FS-LM-002",
+        "description": "Create a 1GB logical volume 'exams' in volume group 'vg0'",
         "points": 1,
         "constraints": 1,
         "validation": {
@@ -83,13 +83,63 @@
         }
     },
     {
-        "name": "FS-003",
-        "description": "Format '/dev/vg0/exams' with ext4",
+        "name": "FS-LM-003",
+        "description": "Create two 1GB logical volumes 'raid1' and 'raid2'  in volume group 'vg0'",
+        "points": 1,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(lvdisplay -c | grep /dev/vg0/raid[12]:vg0 | wc -l) -eq 2"
+        }
+    },
+    {
+        "name": "FS-RM-001",
+        "description": "Create a RAID '/dev/md0' with the disks volumes '/dev/vg0/raid1' and '/dev/vg0/raid2'",
+        "points": 2,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(blkid | grep /dev/vg0/raid[12] | grep linux_raid_member | wc -l) -eq 2 && test $(cat /proc/mdstat | grep md0 | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-PM-001",
+        "description": "Create a new primary partition on '/dev/sde' spanning the whole disk",
+        "points": 1,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(fdisk -l /dev/sde | grep sde1 | wc -l)"
+        }
+    },
+    {
+        "name": "FS-FS-001",
+        "description": "Format '/dev/sde1' with ext4",
         "points": 2,
         "constraints": 1,
         "validation": {
             "type": "shell",
             "code": "test $(blkid /dev/vg0/exams | grep ext4 | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-FS-002",
+        "description": "Create a swap partition off /dev/md0'",
+        "points": 1,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test $(blkid /dev/md0 | grep swap | wc -l) -eq 1"
+        }
+    },
+    {
+        "name": "FS-MM-001",
+        "description": "The disk '/dev/vg0/exams' should be automatically mounted during boot at '/opt/alt/mnt/exams",
+        "points": 1,
+        "constraints": 1,
+        "validation": {
+            "type": "shell",
+            "code": "test -d /opt/alt/mnt/exams && test $(cat /etc/fstab | grep /opt/alt/mnt/exms | wc -l) -eq 1"
         }
     }
 ]
