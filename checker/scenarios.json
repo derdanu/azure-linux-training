@@ -46,7 +46,7 @@
     },
     {
         "name": "SA-BR-001",
-        "description": "Create a backup '/opt/alt/exams.tar.gz' with the recursive content of /opt/alt/exams",
+        "description": "Create a backup '/opt/alt/exams.tar.gz' with the recursive content of '/opt/alt/exams'",
         "points": 1,
         "validation": {
             "type": "shell",
@@ -124,7 +124,7 @@
     },
     {
         "name": "FS-FS-002",
-        "description": "Create a swap partition off /dev/md0'",
+        "description": "Create a swap partition off '/dev/md0'",
         "points": 1,
         "constraints": 1,
         "validation": {
