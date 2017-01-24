@@ -85,6 +85,8 @@ def evaluateScenario(scenario):
 scenarioFile = "{}/scenarios.json".format(os.path.dirname(os.path.realpath(__file__)))
 
 if os.path.isfile(scenarioFile):
+    isContainer = False
+
     if os.path.isfile("/.dockerenv"):
         isContainer = True
 
