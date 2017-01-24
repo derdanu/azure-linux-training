@@ -64,12 +64,12 @@
     },
     {
         "name": "FS-001",
-        "description": "Create a new LVM volume group 'vg0' with the physical volumes /dev/sdb and /dev/sdc",
+        "description": "Create a new LVM volume group 'vg0' with the physical volumes /dev/sdc and /dev/sdd",
         "points": 2,
         "constraints": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(pvdisplay -c | grep -e '/dev/sd[bc]:vg0' | wc -l) -eq 2 && test $(vgdisplay -c | grep -e 'vg0' | wc -l) -eq 1"
+            "code": "test $(pvdisplay -c | grep -e '/dev/sd[cd]:vg0' | wc -l) -eq 2 && test $(vgdisplay -c | grep -e 'vg0' | wc -l) -eq 1"
         }
     },
     {
