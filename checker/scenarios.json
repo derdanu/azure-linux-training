@@ -50,7 +50,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cd /tmp/; tar -xvjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -eq 1"
+            "code": "test $(cd /tmp/; tar -xjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -eq 1"
         }
     },
     {
@@ -99,17 +99,17 @@
         "constraints": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(blkid | grep /dev/vg0/raid[12] | grep linux_raid_member | wc -l) -eq 2 && test $(cat /proc/mdstat | grep md0 | wc -l) -eq 1"
+            "code": "test $(blkid | grep -e '/dev/mapper/vg0-raid[12]' | grep linux_raid_member | wc -l) -eq 2 && test $(cat /proc/mdstat | grep md0 | wc -l) -eq 1"
         }
     },
     {
         "name": "FS-PM-001",
-        "description": "Create a new primary partition on '/dev/sde' spanning the whole disk",
+        "description": "Create a new 1GB primary partition on '/dev/sde'",
         "points": 1,
         "constraints": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(fdisk -l /dev/sde | grep sde1 | wc -l)"
+            "code": "test $(sfdisk -l -uM /dev/sde | grep -e '/dev/sde1 .\\+ .\\+ 1024' | wc -l) -eq 1"
         }
     },
     {
@@ -119,7 +119,7 @@
         "constraints": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(blkid /dev/vg0/exams | grep ext4 | wc -l) -eq 1"
+            "code": "test $(blkid /dev/sde1 | grep ext4 | wc -l) -eq 1"
         }
     },
     {
@@ -134,12 +134,12 @@
     },
     {
         "name": "FS-MM-001",
-        "description": "The disk '/dev/vg0/exams' should be automatically mounted during boot at '/opt/alt/mnt/exams",
+        "description": "The disk '/dev/sde1' should be automatically mounted during boot at '/opt/alt/mnt/exams",
         "points": 1,
         "constraints": 1,
         "validation": {
             "type": "shell",
-            "code": "test -d /opt/alt/mnt/exams && test $(cat /etc/fstab | grep /opt/alt/mnt/exms | wc -l) -eq 1"
+            "code": "test -d /opt/alt/mnt/exams && test $(cat /etc/fstab | grep /opt/alt/mnt/exams | wc -l) -eq 1"
         }
     }
 ]
