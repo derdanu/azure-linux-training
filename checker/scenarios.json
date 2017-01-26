@@ -32,7 +32,7 @@
         "points": 2,
         "validation": {
             "type": "shell",
-            "code": "test $(ls -al /opt/alt/ | grep -e 'drwxrwx---\\+ [0-9] [a-zA-Z]\\+ learners .\\+ exams' | wc -l) -eq 1"
+            "code": "test $(ls -al /opt/alt/ | grep -e 'drwxrwx---\\+ [0-9] [a-zA-Z0-9]\\+ learners .\\+ exams' | wc -l) -eq 1"
         }
     },
     {
