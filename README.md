@@ -57,18 +57,18 @@ docker run -it dfalkner/azure-linux-training:centos /bin/bash
 This image comes with a utility to train certain scenarios which are common for Linux related certification such as Linux Foundation Certified Systemadministrator (LFCS). The container version of this image has limited support for this validation as the required infrastrcuture is not available. To make full use of the validation use the virtual machine.
 
 ## Scenarios
-ID | Description 
+Currently the following explicit scenarios are implemented. Some of the scenarios imply other activities such as installing required software packages or elevate permissions. These scenarios are currently not explicitly mentioned.
+
+ID | Domain | Area | Description 
 ------------ | -------------
-SA-BR-001 | Create a backup '/opt/alt/exams.tar.gz' with the recursive content of '/opt/alt/exams'
-SA-FP-001 | Create a directory '/opt/alt/exams' which is readable/writeable by its owner and by users of the group 'learners'
-SA-FP-002 | Create the file '/opt/alt/README' and set the immutable flag
-SA-UM-001 | Create a group with the name 'learners'
-SA-UM-002 | Add a user with the name 'student1'
-SA-UM-003 | Add user 'student1' to the group 'learners' while leaving the primary group unchanged
-LS-RA-001 | Add a new sudo rule to allow user 'student1' to run '/sbin/ifconfig' without providing a password
-SA-BR-001 | Create a backup '/opt/alt/exams.tar.gz' with the recursive content of '/opt/alt/exams'
-FS-LM-001 | Create a new LVM volume group 'vg0' with the physical volumes '/dev/sdc' and '/dev/sdd'
-FS-LM-002 | Create a 1GB logical volume 'exams' in volume group 'vg0‘
-FS-LM-003 | Create two 1GB logical volumes 'raid1' and 'raid2'  in volume group 'vg0'
-FS-FS-002 | Create a swap partition off '/dev/md0'
-SA-FP-002 | Create the file '/opt/alt/README' and set the immutable flag
+SA-BR-001 | System Administration | Backup & Recovery | Create a backup '/opt/alt/exams.tar.gz' with the recursive content of '/opt/alt/exams'
+SA-FS-001 | System Administration | File Permissions | Create a directory '/opt/alt/exams' which is readable/writeable by its owner and by users of the group 'learners'
+SA-FS-002 | System Administration | File Permissions | Create the file '/opt/alt/README' and set the immutable flag
+SA-UM-001 | System Administration | User Management | Create a group with the name 'learners'
+SA-UM-002 | System Administration | User Management | Add a user with the name 'student1'
+SA-UM-003 | System Administration | User Management | Add user 'student1' to the group 'learners' while leaving the primary group unchanged
+LS-RA-001 | Local Security | root Access | Add a new sudo rule to allow user 'student1' to run '/sbin/ifconfig' without providing a password
+FS-001 | File System & Storage | - | Create a new LVM volume group 'vg0' with the physical volumes '/dev/sdc' and '/dev/sdd'
+FS-002 | File System & Storage | - | Create a 1GB logical volume 'exams' in volume group 'vg0‘
+FS-003 | File System & Storage | - | Create two 1GB logical volumes 'raid1' and 'raid2'  in volume group 'vg0'
+FS-002 | File System & Storage | - | Create a swap partition off '/dev/md0'
