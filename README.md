@@ -60,7 +60,7 @@ This image comes with a utility to train certain scenarios which are common for 
 Currently the following explicit scenarios are implemented. Some of the scenarios imply other activities such as installing required software packages or elevate permissions. These scenarios are currently not explicitly mentioned.
 
 ID | Domain | Area | Description 
------------- | -------------
+------------ | ------------ | ------------ |-------------
 SA-BR-001 | System Administration | Backup & Recovery | Create a backup '/opt/alt/exams.tar.gz' with the recursive content of '/opt/alt/exams'
 SA-FS-001 | System Administration | File Permissions | Create a directory '/opt/alt/exams' which is readable/writeable by its owner and by users of the group 'learners'
 SA-FS-002 | System Administration | File Permissions | Create the file '/opt/alt/README' and set the immutable flag
