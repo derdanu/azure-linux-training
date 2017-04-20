@@ -50,7 +50,7 @@
         "points": 1,
         "validation": {
             "type": "shell",
-            "code": "test $(cd /tmp/; tar -xjf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -eq 1"
+            "code": "test $(cd /tmp/; tar -xzf /opt/alt/exams.tar.gz; ls -al | grep exams | wc -l) -eq 1"
         }
     },
     {
