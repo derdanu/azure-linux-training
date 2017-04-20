@@ -6,6 +6,7 @@ This virtual machines is preconfigured for Linux training purposes.
 
  Type | Description 
 ------------ | -------------
+ 1 x ??? GB Harddrive | OS Disk
  3 x 128 GB Harddrives | Raid devices or use with LVM 
  1 x 14 GB Harddrive | Swap device |
  /opt/azure-linux-training-master | This repository with training files 
